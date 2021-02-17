@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="user$ | async as user">Edit {{ user.firstName }} {{ user.lastName }} ({{user.email}})</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" *ngIf="user$ | async as user">
+  <app-edit-user-form [user]="user"></app-edit-user-form>
+  <ion-button expand="block" color="danger" (click)="navigateToDeleteUser(user.id)">Go to delete page</ion-button>
+</ion-content>

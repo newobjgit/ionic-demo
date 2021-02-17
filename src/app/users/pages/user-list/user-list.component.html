@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>User list</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-button expand="block" color="success" (click)="navigateToCreateUser()">Create new user</ion-button>
+
+    <ng-container *ngIf="!loading; else spinner">
+      <ion-list>
+        <ion-item *ngFor="let user of users$ | async; trackBy: trackByFn;" (click)="navigateToEditUser(user.id)">
+          <ion-label class="ion-text-wrap">
+            {{ user.firstName }} {{ user.lastName }} ({{user.email}})
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+
+  <ng-template #spinner>
+    <app-spinner></app-spinner>
+  </ng-template>
+
+</ion-content>
+

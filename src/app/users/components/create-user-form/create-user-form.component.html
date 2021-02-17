@@ -1,0 +1,54 @@
+<form [formGroup]="createUserForm" (ngSubmit)="submitForm()">
+  <ion-item lines="none">
+    <ion-label position="fixed">First name</ion-label>
+    <ion-input type="text" required formControlName="firstName"></ion-input>
+  </ion-item>
+  <span class="error ion-padding" *ngIf="formControls.firstName.touched && formControls.firstName.errors?.required">
+      First name is required.
+  </span>
+
+  <ion-item lines="none">
+    <ion-label position="fixed">Last name</ion-label>
+    <ion-input type="text" required formControlName="lastName"></ion-input>
+  </ion-item>
+  <span class="error ion-padding" *ngIf="formControls.lastName.touched && formControls.lastName.errors?.required">
+      Last name is required.
+  </span>
+
+  <ion-item lines="none">
+    <ion-label position="fixed">Email</ion-label>
+    <ion-input type="email" required formControlName="email"></ion-input>
+  </ion-item>
+  <span class="error ion-padding" *ngIf="formControls.email.touched && formControls.email.errors?.required">
+      Email is required.
+  </span>
+  <span class="error ion-padding" *ngIf="formControls.email.touched && formControls.email.errors?.email">
+      Please provide valid email id.
+  </span>
+
+  <ion-item lines="full">
+    <ion-label position="fixed">Date of birth</ion-label>
+    <ion-datetime (ionChange)="getDate($event)" formControlName="dateOfBirth" [value]="defaultDate"></ion-datetime>
+  </ion-item>
+  <span class="error ion-padding" *ngIf="formControls.dateOfBirth.touched && formControls.dateOfBirth.errors?.required">
+      Date of birth is required.
+  </span>
+
+  <ion-row *ngIf="!(loading$ | async); else spinner">
+    <ion-col>
+      <ion-button
+        type="submit"
+        color="success"
+        expand="block"
+        [disabled]="createUserForm.invalid"
+      >
+        Save
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ng-template #spinner>
+    <app-spinner></app-spinner>
+  </ng-template>
+
+</form>
